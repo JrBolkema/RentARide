@@ -9,7 +9,7 @@ namespace RentARide.Controllers
 {
 	[Route("Vehicle")]
 	[ApiController]
-	public class ValuesController : ControllerBase
+	public class VehicleController : ControllerBase
 	{
 		// GET vehicle
 		[HttpGet]

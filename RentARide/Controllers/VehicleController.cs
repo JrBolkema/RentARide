@@ -21,39 +21,36 @@ namespace RentARide.Controllers
 			this.serviceProvider = serviceProvider;
 		}
 		// GET vehicle
-		//[HttpGet]
-		//public ActionResult<IEnumerable<Vehicle>> Get()
-		//{
-		//	List<Vehicle> VehicleList = new List<Vehicle>
-		//	{
-		//		new Vehicle("Toyota","Yaris",2010,7500.00m),
-		//		new Vehicle("Nissan","XTerra",2010,10000.00m),
-		//		new Vehicle("Infiniti","Fx35",2012,15000.25m)
-		//	};
-		//	return VehicleList;
-		//}
+		[HttpGet]
+		public ActionResult<IEnumerable<Vehicle>> Get()
+		{
+			List<Vehicle> VehicleList = new List<Vehicle>
+			{
+				//new Vehicle("Toyota","Yaris",2010,7500.00m),
+				new Vehicle{
+					Make = "Toyota",
+					Model = "Yaris",
+					ModelYear = 2010,
+					PurchasePrice = 7500.00m}
+				//new Vehicle("Nissan","XTerra",2010,10000.00m),
+				//new Vehicle("Infiniti","Fx35",2012,15000.25m)
+			};
+			return VehicleList;
+		}
 
 		// GET vehicle/get/{id}
 		[HttpGet("{id}")]
 		public ActionResult<string> Get(int id)
 		{
-			try
-			{
-				var conn = new SqlConnection("Server=tcp:cis447.database.windows.net,1433;Initial Catalog=RentARide;Persist Security Info=True;User ID=cisadmin;Password=Password1;MultipleActiveResultSets=True;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;");
-				conn.Open();
-				conn.Close();
-			}
-			catch (Exception e)
-			{
-				return e.ToString();
-			}
-			return "true";
-
+			return "Value";
 		}
 
 		// POST vehicle
 		[HttpPost]
-		public void Post()
+		// explicitly declares the name of the route
+		// would be .../vehicle/addvehicle instead of .../vehicle
+		// [Route("AddVehicle")]
+		public void Post([FromBody] Vehicle vehicle)
 		{
 
 			using (var context = new RentARideContext(
@@ -61,15 +58,22 @@ namespace RentARide.Controllers
 						DbContextOptions<RentARideContext>>())
 					)
 			{
-				context.Database.ExecuteSqlCommand("Exec dbo.AddVehicle @VIN, @Make, @Model, @ModelYear, @PurchasePrice, @VehicleType, @VehicleID",
-					new SqlParameter("@VIN", "AAAAAAAAAAAAAAAAA"),
-					new SqlParameter("@Make", "Toyota"),
-					new SqlParameter("@Model", "Rav4"),
-					new SqlParameter("@ModelYear", 2010),
-					new SqlParameter("@PurchasePrice", 10000.00m),
-					new SqlParameter("@VehicleType", "Car"),
-					new SqlParameter("@VehicleID", -1));
-					//new SqlParameter("@VehicleID",)
+				var outputParam = new SqlParameter("@VehicleID", vehicle.rarVehicleID)
+				{
+					Direction = System.Data.ParameterDirection.Output
+				};
+
+				var vehicleId = context.Database.ExecuteSqlCommand("Exec dbo.AddVehicle @VIN, @Make, @Model, @ModelYear, @PurchasePrice, @VehicleType, @VehicleID OUT",
+					new SqlParameter("@VIN", vehicle.VIN),
+					new SqlParameter("@Make", vehicle.Make),
+					new SqlParameter("@Model", vehicle.Model),
+					new SqlParameter("@ModelYear", vehicle.ModelYear),
+					new SqlParameter("@PurchasePrice", vehicle.PurchasePrice),
+					new SqlParameter("@VehicleType", vehicle.VehicleType),
+					outputParam);
+				// Logs the ID of the newly created vehicle
+				Console.WriteLine(outputParam.Value);
+				
 			}
 		}
 

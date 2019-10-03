@@ -87,6 +87,22 @@ namespace RentARide.Controllers
 		[HttpDelete("{id}")]
 		public void Delete(int id)
 		{
-		}
+            using (var context = new RentARideContext(
+                    serviceProvider.GetRequiredService<
+                        DbContextOptions<RentARideContext>>())
+                    )
+            {
+                
+                var outputParam = new SqlParameter("@outputMessage", id)
+                {
+                    Direction = System.Data.ParameterDirection.Output
+                };
+                var vehicleId = context.Database.ExecuteSqlCommand("Exec dbo.AddVehicle @rarVehicleID",
+                    new SqlParameter("@rarVehicleID", id),
+                    outputParam);
+
+                Console.WriteLine(outputParam.Value);
+            }
+        }
 	}
 }

@@ -73,14 +73,39 @@ namespace RentARide.Controllers
 					outputParam);
 				// Logs the ID of the newly created vehicle
 				Console.WriteLine(outputParam.Value);
-				
+
 			}
 		}
 
 		// PUT vehicle/put/{id}
 		[HttpPut("{id}")]
-		public void Put(int id, [FromBody] string value)
+		public void Put(int id, [FromBody] Vehicle vehicle)
 		{
+			using (var context = new RentARideContext(
+                    serviceProvider.GetRequiredService<
+                        DbContextOptions<RentARideContext>>())
+                    )
+            {
+
+                var outputParamUpdate = new SqlParameter("@updateVehicle", id)
+                {
+                    Direction = System.Data.ParameterDirection.Output
+                };
+                var vehicleId = context.Database.ExecuteSqlCommand("Exec dbo.updateVehicle @rarVehicleID, @VIN, @make, @model, @modelYear, @purchaseDate, @purchasePrice, @salePrice, @vehicleType, @fleetStatus, @outputMessage",
+                    new SqlParameter("@rarVehicleID", id),
+                    new SqlParameter("@VIN", vehicle.VIN),
+                    new SqlParameter("@make", vehicle.Make),
+                    new SqlParameter("@model", vehicle.Model),
+                    new SqlParameter("@modelYear", vehicle.ModelYear),
+                    new SqlParameter("@purchaseDate", vehicle.PurchaseDate),
+                    new SqlParameter("@purchasePrice", vehicle.PurchasePrice),
+                    new SqlParameter("@salesPrice", null),
+                    new SqlParameter("@vehicleType", vehicle.VehicleType),
+                    new SqlParameter("@fleetStatus", vehicle.FleetStatus),
+                    outputParamUpdate);
+
+                Console.WriteLine(outputParamUpdate.Value);
+            }
 		}
 
 		// DELETE vehicle/put/{id}
@@ -92,7 +117,7 @@ namespace RentARide.Controllers
                         DbContextOptions<RentARideContext>>())
                     )
             {
-                
+
                 var outputParam = new SqlParameter("@outputMessage", id)
                 {
                     Direction = System.Data.ParameterDirection.Output

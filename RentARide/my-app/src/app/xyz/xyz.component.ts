@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DatabaseConnectionService } from "../database-connection.service";
 
 @Component({
   selector: 'app-xyz',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class XyzComponent implements OnInit {
 
-  constructor() { }
+  constructor(private databaseService:DatabaseConnectionService) {
+    
+   }
 
   ngOnInit() {
+    var num = this.databaseService.getVehicleById(1230)
+    console.log(num)
   }
 
 }

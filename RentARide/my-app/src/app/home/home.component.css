@@ -1,0 +1,10 @@
+table, tr {
+  border: 1px solid black;
+}
+#title:hover{
+  cursor: pointer;
+}
+table {
+  display: inline;
+  margin: 50px;
+}

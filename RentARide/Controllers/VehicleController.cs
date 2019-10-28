@@ -122,7 +122,7 @@ namespace RentARide.Controllers
                     )
             {
 
-                var outputParamUpdate = new SqlParameter("@updateVehicle", id)
+                var outputParamUpdate = new SqlParameter("@outputMessage", id)
                 {
                     Direction = System.Data.ParameterDirection.Output
                 };

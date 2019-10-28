@@ -23,7 +23,7 @@ export class HomeComponent {
   }
 
   public getCars(car) {
-    if(this.show==false) {
+    if(this.vehicleNames[this.vehilces.indexOf(car)].Visible == false) {
       this.show = true;
       this.vehicleNames[this.vehilces.indexOf(car)].Visible = true;
     } else {

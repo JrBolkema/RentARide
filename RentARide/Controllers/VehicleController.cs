@@ -24,8 +24,18 @@ namespace RentARide.Controllers
 		[HttpGet]
 		public ActionResult<IEnumerable<Vehicle>> Get()
 		{
+            /*
+            using (var context = new RentARideContext(
+                    serviceProvider.GetRequiredService<
+                        DbContextOptions<RentARideContext>>())
+                    )
+            {
+                List<Vehicle> VehicleList = context.Database.ExecuteSqlCommand("Exec dbo.listVehicles"); 
+            }
+            */
 			List<Vehicle> VehicleList = new List<Vehicle>
 			{
+                                
 				//new Vehicle("Toyota","Yaris",2010,7500.00m),
 				new Vehicle{
 					Make = "Toyota",
@@ -57,13 +67,14 @@ namespace RentARide.Controllers
 					Model = "Model S",
 					ModelYear = 2019,
 					PurchasePrice = 20000.00m },
-
+                    
 			};
-			return VehicleList;
-		}
+            return VehicleList;
+            
+        }
 
-		// GET vehicle/get/{id}
-		[HttpGet("{id}")]
+        // GET vehicle/get/{id}
+        [HttpGet("{id}")]
 		public ActionResult<string> Get(int id)
 		{
 			return "Value";
@@ -141,11 +152,11 @@ namespace RentARide.Controllers
                     )
             {
 
-                var outputParam = new SqlParameter("@outputMessage", id)
+                var outputParam = new SqlParameter("@outputMessage", true)
                 {
                     Direction = System.Data.ParameterDirection.Output
                 };
-                var vehicleId = context.Database.ExecuteSqlCommand("Exec dbo.deleteVehicle @rarVehicleID",
+                var vehicleId = context.Database.ExecuteSqlCommand("Exec dbo.deleteVehicle @rarVehicleID, @outputMessage OUT",
                     new SqlParameter("@rarVehicleID", id),
                     outputParam);
 

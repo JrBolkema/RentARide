@@ -21,7 +21,7 @@ namespace RentARide
 		{
 			Configuration = configuration;
 		}
-
+		readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 		public IConfiguration Configuration { get; }
 
 		// This method gets called by the runtime. Use this method to add services to the container.
@@ -30,6 +30,14 @@ namespace RentARide
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 			services.AddDbContext<RentARideContext>(options =>
 				options.UseSqlServer(Configuration.GetConnectionString("RentARideContext")));
+			services.AddCors(options =>
+			{
+				options.AddPolicy(MyAllowSpecificOrigins,
+				builder =>
+				{
+					builder.WithOrigins("*");
+				});
+			});
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,7 +51,7 @@ namespace RentARide
 			{
 				app.UseHsts();
 			}
-
+			app.UseCors(MyAllowSpecificOrigins);
 			app.UseHttpsRedirection();
 			app.UseMvc();
 		}

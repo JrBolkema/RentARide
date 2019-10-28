@@ -3,19 +3,19 @@
 
 <table *ngFor="let car of vehilces">
   <tr>
-    <td width="100" id="title" style="text-align: center" (click)="getCars(car)">{{car.make}}</td>
+    <td width="100" id="title" style="text-align: center" (click)="getCars(car)">{{car.car.make}}</td>
   </tr>
   <tr>
       <!-- <td *ngIf="show == true">{{vehilces[0].VIN}}</td> -->
-      <td *ngIf="vehicleNames[vehilces.indexOf(car)].Visible == true">Model:</td>
-      <td *ngIf="vehicleNames[vehilces.indexOf(car)].Visible == true">{{car.model}}</td>
+      <td *ngIf="vehicleNames[vehilces.indexOf(car)].Visible == true" >Model:</td>
+      <td *ngIf="vehicleNames[vehilces.indexOf(car)].Visible == true" >{{car.car.model}}</td>
   </tr>
   <tr>
-      <td *ngIf="vehicleNames[vehilces.indexOf(car)].Visible == true">Year:</td>
-      <td *ngIf="vehicleNames[vehilces.indexOf(car)].Visible == true">{{car.modelYear}}</td>
+      <td *ngIf="vehicleNames[vehilces.indexOf(car)].Visible == true" >Year:</td>
+      <td *ngIf="vehicleNames[vehilces.indexOf(car)].Visible == true" >{{car.car.modelYear}}</td>
   </tr>
   <tr>
-      <td *ngIf="vehicleNames[vehilces.indexOf(car)].Visible == true">Price:</td>
-      <td *ngIf="vehicleNames[vehilces.indexOf(car)].Visible == true">{{car.purchasePrice}}</td>
+      <td *ngIf="vehicleNames[vehilces.indexOf(car)].Visible == true" >Price:</td>
+      <td *ngIf="vehicleNames[vehilces.indexOf(car)].Visible == true" >{{car.car.purchasePrice}}</td>
   </tr>
 </table>

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { vehicles } from '../vehicles';
+//import { vehicles } from '../vehicles';
+import { DatabaseService } from '../database.service';
+import { ThrowStmt } from '@angular/compiler';
 
 
 @Component({
@@ -9,17 +11,30 @@ import { vehicles } from '../vehicles';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  vehilces = vehicles;
+  //vehilces = vehicles;
+  vehilces = [];
   vehicleNames = [];
   show = false;
+  
 
-  constructor() {
-    vehicles.forEach(car => {
-      this.vehicleNames.push({Name : car.make, Visible : false});
-    });
+  constructor(private databaseService:DatabaseService
+    ) {
+    
   }
 
   ngOnInit() {
+    
+    
+    this.databaseService.getAllVehicles().toPromise().then(
+      result => {
+        result.forEach(car => {
+          this.vehicleNames.push({Name : car.make, Visible : false});
+          this.vehilces.push({car})
+          console.log(car);
+          
+        });
+        this.show = true;
+      });
   }
 
   public getCars(car) {

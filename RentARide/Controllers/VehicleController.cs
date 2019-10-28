@@ -29,11 +29,35 @@ namespace RentARide.Controllers
 				//new Vehicle("Toyota","Yaris",2010,7500.00m),
 				new Vehicle{
 					Make = "Toyota",
-					Model = "Yaris",
+					Model = "4Runner",
 					ModelYear = 2010,
-					PurchasePrice = 7500.00m}
-				//new Vehicle("Nissan","XTerra",2010,10000.00m),
-				//new Vehicle("Infiniti","Fx35",2012,15000.25m)
+					PurchasePrice = 7500.00m},
+				new Vehicle{
+					Make = "Nissan",
+					Model = "XTerra",
+					ModelYear = 2010,
+					PurchasePrice = 10000.00m },
+				new Vehicle{
+					Make = "Tesla",
+					Model = "Model S",
+					ModelYear = 2019,
+					PurchasePrice = 20000.00m },
+			new Vehicle{
+					Make = "Toyota",
+					Model = "4Runner",
+					ModelYear = 2010,
+					PurchasePrice = 7500.00m},
+				new Vehicle{
+					Make = "Nissan",
+					Model = "XTerra",
+					ModelYear = 2010,
+					PurchasePrice = 10000.00m },
+				new Vehicle{
+					Make = "Tesla",
+					Model = "Model S",
+					ModelYear = 2019,
+					PurchasePrice = 20000.00m },
+
 			};
 			return VehicleList;
 		}

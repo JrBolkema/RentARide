@@ -31,5 +31,16 @@ export const vehicles = [
         purchasePrice: 12000.00,
         vehicleType: null,
         fleetStatus: null
-    }
+    },
+    {
+      rarVehicleID: 3,
+      vin: null,
+      make: "Toyota",
+      model: "Corolla",
+      modelYear: 2015,
+      purchaseDate: "0001-01-01T00:00:00",
+      purchasePrice: 12000.00,
+      vehicleType: null,
+      fleetStatus: null
+  }
 ];

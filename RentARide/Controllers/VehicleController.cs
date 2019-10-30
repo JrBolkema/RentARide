@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using RentARide.Models;
 using RentARide.Data;
 using System.Data.SqlClient;
+using Newtonsoft.Json;
 
 namespace RentARide.Controllers
 {
@@ -22,17 +23,18 @@ namespace RentARide.Controllers
 		}
 		// GET vehicle
 		[HttpGet]
-		public ActionResult<IEnumerable<Vehicle>> Get()
+		public ActionResult<string> Get()
 		{
-            /*
+            
             using (var context = new RentARideContext(
                     serviceProvider.GetRequiredService<
                         DbContextOptions<RentARideContext>>())
                     )
             {
-                List<Vehicle> VehicleList = context.Database.ExecuteSqlCommand("Exec dbo.listVehicles"); 
+                string VehicleList = JsonConvert.SerializeObject(context.Database.ExecuteSqlCommand("Exec dbo.listVehicles"));
+                return VehicleList;
             }
-            */
+            /*
 			List<Vehicle> VehicleList = new List<Vehicle>
 			{
                                 
@@ -69,7 +71,7 @@ namespace RentARide.Controllers
 					PurchasePrice = 20000.00m },
                     
 			};
-            return VehicleList;
+            */
             
         }
 

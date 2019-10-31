@@ -126,14 +126,15 @@ namespace RentARide.Controllers
                 {
                     Direction = System.Data.ParameterDirection.Output
                 };
-                var vehicleId = context.Database.ExecuteSqlCommand("Exec dbo.updateVehicle @rarVehicleID, @VIN, @make, @model, @modelYear, @purchaseDate, @purchasePrice, @vehicleType, @fleetStatus, @outputMessage",
+                var vehicleId = context.Database.ExecuteSqlCommand("Exec dbo.updateVehicle @rarVehicleID, @VIN, @make, @model, @modelYear, @purchaseDate, @purchasePrice,  @salePrice, @vehicleType, @fleetStatus, @outputMessage OUT",
                     new SqlParameter("@rarVehicleID", id),
                     new SqlParameter("@VIN", vehicle.VIN),
                     new SqlParameter("@make", vehicle.Make),
                     new SqlParameter("@model", vehicle.Model),
                     new SqlParameter("@modelYear", vehicle.ModelYear),
-                    new SqlParameter("@purchaseDate", vehicle.PurchaseDate),
+					new SqlParameter("@purchaseDate", vehicle.PurchaseDate),
                     new SqlParameter("@purchasePrice", vehicle.PurchasePrice),
+					new SqlParameter("@salePrice", vehicle.salePrice),
                     new SqlParameter("@vehicleType", vehicle.VehicleType),
                     new SqlParameter("@fleetStatus", vehicle.FleetStatus),
                     outputParamUpdate);

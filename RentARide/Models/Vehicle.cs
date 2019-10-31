@@ -14,6 +14,7 @@ namespace RentARide.Models
 		public string Make { get; set; }
 		public string Model { get; set; }
 		public int ModelYear { get; set; }
+		public decimal salePrice { get; set; }
 		public DateTime PurchaseDate { get; set; }
 		public decimal PurchasePrice { get; set; }
 		public string VehicleType { get; set; }

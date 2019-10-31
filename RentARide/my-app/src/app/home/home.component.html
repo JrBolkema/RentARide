@@ -6,6 +6,10 @@
     <td width="100" id="title" style="text-align: center" (click)="getCars(car)">{{car.car.make}}</td>
   </tr>
   <tr>
+    <td *ngIf="vehicleNames[vehilces.indexOf(car)].Visible == true" >ID:</td>
+    <td *ngIf="vehicleNames[vehilces.indexOf(car)].Visible == true" >{{car.car.rarVehicleID}}</td>
+</tr>
+  <tr>
       <!-- <td *ngIf="show == true">{{vehilces[0].VIN}}</td> -->
       <td *ngIf="vehicleNames[vehilces.indexOf(car)].Visible == true" >Model:</td>
       <td *ngIf="vehicleNames[vehilces.indexOf(car)].Visible == true" >{{car.car.model}}</td>

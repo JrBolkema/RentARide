@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using RentARide.Models;
 using RentARide.Data;
 using System.Data.SqlClient;
+using Newtonsoft.Json;
 
 namespace RentARide.Controllers
 {
@@ -22,17 +23,25 @@ namespace RentARide.Controllers
 		}
 		// GET vehicle
 		[HttpGet]
-		public ActionResult<IEnumerable<Vehicle>> Get()
+		public ActionResult<string> Get()
 		{
-            /*
+            
             using (var context = new RentARideContext(
                     serviceProvider.GetRequiredService<
                         DbContextOptions<RentARideContext>>())
                     )
             {
-                List<Vehicle> VehicleList = context.Database.ExecuteSqlCommand("Exec dbo.listVehicles"); 
+                SqlParameter returnParam = new SqlParameter();
+                returnParam.Direction = System.Data.ParameterDirection.ReturnValue;
+                
+                var outputParamUpdate = new SqlParameter("@JSON", System.Data.SqlDbType.VarChar,100000)
+                {
+                    Direction = System.Data.ParameterDirection.Output
+                };
+                string VehicleList = context.Database.ExecuteSqlCommand("Exec dbo.listVehicles @JSON OUT",outputParamUpdate,returnParam).ToString();
+                return outputParamUpdate.Value.ToString();
             }
-            */
+            /*
 			List<Vehicle> VehicleList = new List<Vehicle>
 			{
                                 
@@ -69,7 +78,7 @@ namespace RentARide.Controllers
 					PurchasePrice = 20000.00m },
                     
 			};
-            return VehicleList;
+            */
             
         }
 
@@ -122,7 +131,7 @@ namespace RentARide.Controllers
                     )
             {
 
-                var outputParamUpdate = new SqlParameter("@outputMessage", id)
+                var outputParamUpdate = new SqlParameter("@outputMessage", System.Data.SqlDbType.Bit)
                 {
                     Direction = System.Data.ParameterDirection.Output
                 };
@@ -153,7 +162,7 @@ namespace RentARide.Controllers
                     )
             {
 
-                var outputParam = new SqlParameter("@outputMessage", true)
+                var outputParam = new SqlParameter("@outputMessage", System.Data.SqlDbType.Bit)
                 {
                     Direction = System.Data.ParameterDirection.Output
                 };

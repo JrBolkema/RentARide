@@ -131,7 +131,7 @@ namespace RentARide.Controllers
                     )
             {
 
-                var outputParamUpdate = new SqlParameter("@outputMessage", id)
+                var outputParamUpdate = new SqlParameter("@outputMessage", System.Data.SqlDbType.Bit)
                 {
                     Direction = System.Data.ParameterDirection.Output
                 };
@@ -161,7 +161,7 @@ namespace RentARide.Controllers
                     )
             {
 
-                var outputParam = new SqlParameter("@outputMessage", true)
+                var outputParam = new SqlParameter("@outputMessage", System.Data.SqlDbType.Bit)
                 {
                     Direction = System.Data.ParameterDirection.Output
                 };

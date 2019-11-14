@@ -1,3 +1,11 @@
+<header *ngIf="isAuthenticatedUser">
+      <a href="">Check In</a>
+      <br>
+      <a href="">Check Out</a>
+
+</header>
+
+
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
       <input type="text" formControlName="username" default="username">
@@ -6,3 +14,5 @@
 <br/>
       <button type="submit">Submit</button>
   </form>
+
+<button *ngIf="isAuthenticatedUser" (click)="onLogoutClick()">Log Out</button>

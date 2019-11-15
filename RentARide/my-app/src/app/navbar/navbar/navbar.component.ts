@@ -7,9 +7,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
+  isAuthenticatedUser:boolean = false;
+
+
   constructor() { }
 
   ngOnInit() {
   }
+  TriggerLogIn()
+  {
+    this.isAuthenticatedUser = true
+  }
 
+  TriggerLogOut()
+  {
+    this.isAuthenticatedUser = false;
+
+  }
 }

@@ -1,1 +1,18 @@
-<p>navbar works!</p>
+<mat-toolbar>
+    <button mat-button *ngIf="!isAuthenticatedUser">Rent</button>
+    <button mat-button *ngIf="!isAuthenticatedUser">View Rental</button>
+    <button mat-button *ngIf="isAuthenticatedUser">Check In</button>
+    <button mat-button *ngIf="isAuthenticatedUser">Check Out</button>
+    <button mat-icon-button style="float: right;"
+    [satPopoverAnchor]=login
+    (click)="login.toggle()">
+        <mat-icon>account_box</mat-icon>
+    </button>
+
+</mat-toolbar>
+
+<sat-popover #login hasBackdrop verticalAlign="below">
+    <mat-card>
+    <app-login (login)="TriggerLogIn($event)" (logout)="TriggerLogOut($event)"></app-login>
+</mat-card>
+  </sat-popover>

@@ -9,19 +9,23 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { XyzComponent } from './xyz/xyz.component';
 import { LoginComponent } from './login/login.component';
+import { NavbarComponent } from './navbar/navbar/navbar.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     XyzComponent,
-    LoginComponent
+    LoginComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
     
 
   ],

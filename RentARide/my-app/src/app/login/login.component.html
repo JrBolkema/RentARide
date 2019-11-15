@@ -1,18 +1,17 @@
-<header *ngIf="isAuthenticatedUser">
-      <a href="">Check In</a>
-      <br>
-      <a href="">Check Out</a>
-
-</header>
 
 
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
-      <input type="text" formControlName="username" default="username">
-        <br/>
-      <input type="text" formControlName="password">
-<br/>
-      <button type="submit">Submit</button>
-  </form>
+<form *ngIf="!isAuthenticatedUser" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <mat-form-field>
+            <input matInput type="text" placeholder="Username" formControlName="username">
+      </mat-form-field>
+      <br>  
+      <mat-form-field>
+            <input matInput type="password" placeholder="Password" formControlName="password"> 
+      </mat-form-field>
+      <br />
+      <button mat-button color=primary type="submit" >Submit</button>
+</form>
 
-<mat-button *ngIf="isAuthenticatedUser" (click)="onLogoutClick()">Log Out</mat-button>
+
+<button mat-button *ngIf="isAuthenticatedUser" (click)="onLogoutClick()">Log Out</button>

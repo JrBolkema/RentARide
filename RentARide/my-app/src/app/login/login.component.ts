@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,EventEmitter, Output} from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { SecurityService } from "../security.service";
 
@@ -15,6 +15,10 @@ export class LoginComponent implements OnInit {
 
   constructor(private securityService: SecurityService) { }
 
+  @Output() login: EventEmitter<any> = new EventEmitter();
+  @Output() logout: EventEmitter<any> = new EventEmitter();
+
+
   ngOnInit() {
     this.initializeLoginForm()
   }
@@ -29,16 +33,16 @@ export class LoginComponent implements OnInit {
 
 
   onSubmit() {
-    window.alert(`Username: ${this.loginForm.value.username} Password: ${this.loginForm.value.password}`)
     if(this.securityService.isEmployee(this.loginForm.value.username,this.loginForm.value.password))
     { 
-      window.alert("true")
       this.isAuthenticatedUser = true
+      this.login.emit(null);
     }
     //this.submitToService();
   };
   onLogoutClick(){
     this.isAuthenticatedUser = false
+    this.logout.emit(null)
   }
 
 }

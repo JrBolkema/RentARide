@@ -1,22 +1,19 @@
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class SecurityService {
 
-  constructor() { }
+  constructor(private httpClient: HttpClient) { }
 
-  isEmployee(username: string, password: string) : boolean
+  isEmployee(username: string, password: string) 
   {
-    var validUsername = "jon";
-    var validPassword = '1234';
+    var formattedUrl = `${environment.login}?username=${username}&password=${password}`
+    return this.httpClient.get<boolean>(formattedUrl);
 
-    if (username === validUsername && password === validPassword) {
-      return true
-    } else {
-      return false
-    }
-    
   }
 }

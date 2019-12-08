@@ -13,7 +13,10 @@ namespace RentARide.Data
 			}
 
 			public DbSet<Models.Vehicle> Vehicle { get; set; }
-		}
+            public DbSet<Models.Employees> Employees { get; set; }
+            public DbSet<Models.Reservations> Reservations { get; set; }
+            public DbSet<Models.Locations> Locations { get; set; }
+    }
 	}
 
 

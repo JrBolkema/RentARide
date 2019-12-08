@@ -40,46 +40,7 @@ namespace RentARide.Controllers
                 };
                 string VehicleList = context.Database.ExecuteSqlCommand("Exec dbo.listVehicles @JSON OUT",outputParamUpdate,returnParam).ToString();
                 return outputParamUpdate.Value.ToString();
-            }
-            /*
-			List<Vehicle> VehicleList = new List<Vehicle>
-			{
-                                
-				//new Vehicle("Toyota","Yaris",2010,7500.00m),
-				new Vehicle{
-					Make = "Toyota",
-					Model = "4Runner",
-					ModelYear = 2010,
-					PurchasePrice = 7500.00m},
-				new Vehicle{
-					Make = "Nissan",
-					Model = "XTerra",
-					ModelYear = 2010,
-					PurchasePrice = 10000.00m },
-				new Vehicle{
-					Make = "Tesla",
-					Model = "Model S",
-					ModelYear = 2019,
-					PurchasePrice = 20000.00m },
-			new Vehicle{
-					Make = "Toyota",
-					Model = "4Runner",
-					ModelYear = 2010,
-					PurchasePrice = 7500.00m},
-				new Vehicle{
-					Make = "Nissan",
-					Model = "XTerra",
-					ModelYear = 2010,
-					PurchasePrice = 10000.00m },
-				new Vehicle{
-					Make = "Tesla",
-					Model = "Model S",
-					ModelYear = 2019,
-					PurchasePrice = 20000.00m },
-                    
-			};
-            */
-            
+            }    
         }
 
         // GET vehicle/get/{id}
@@ -102,18 +63,20 @@ namespace RentARide.Controllers
 						DbContextOptions<RentARideContext>>())
 					)
 			{
-				var outputParam = new SqlParameter("@VehicleID", vehicle.rarVehicleID)
+				var outputParam = new SqlParameter("@vehicleId", vehicle.vehicleId)
 				{
 					Direction = System.Data.ParameterDirection.Output
 				};
 
-				var vehicleId = context.Database.ExecuteSqlCommand("Exec dbo.AddVehicle @VIN, @Make, @Model, @ModelYear, @PurchasePrice, @VehicleType, @VehicleID OUT",
-					new SqlParameter("@VIN", vehicle.VIN),
-					new SqlParameter("@Make", vehicle.Make),
-					new SqlParameter("@Model", vehicle.Model),
-					new SqlParameter("@ModelYear", vehicle.ModelYear),
-					new SqlParameter("@PurchasePrice", vehicle.PurchasePrice),
-					new SqlParameter("@VehicleType", vehicle.VehicleType),
+				var vehicleId = context.Database.ExecuteSqlCommand("Exec dbo.AddVehicle @vinNumber, @make, @model, @vehicleYear, @dailyRate, @vehicleType, @currentLocation, @fleetStatus, @vehicleId OUT",
+					new SqlParameter("@vinNumber", vehicle.vinNumber),
+					new SqlParameter("@make", vehicle.make),
+					new SqlParameter("@model", vehicle.model),
+					new SqlParameter("@vehicleYear", vehicle.vehicleYear),
+					new SqlParameter("@dailyRate", vehicle.dailyRate),
+					new SqlParameter("@vehicleType", vehicle.vehicleType),
+                    new SqlParameter("@currentLocation", vehicle.currentLocation),
+                    new SqlParameter("@fleetStatus", vehicle.fleetStatus),
 					outputParam);
 				// Logs the ID of the newly created vehicle
 				Console.WriteLine(outputParam.Value);
@@ -135,17 +98,16 @@ namespace RentARide.Controllers
                 {
                     Direction = System.Data.ParameterDirection.Output
                 };
-                var vehicleId = context.Database.ExecuteSqlCommand("Exec dbo.updateVehicle @rarVehicleID, @VIN, @make, @model, @modelYear, @purchaseDate, @purchasePrice,  @salePrice, @vehicleType, @fleetStatus, @outputMessage OUT",
-                    new SqlParameter("@rarVehicleID", id),
-                    new SqlParameter("@VIN", vehicle.VIN),
-                    new SqlParameter("@make", vehicle.Make),
-                    new SqlParameter("@model", vehicle.Model),
-                    new SqlParameter("@modelYear", vehicle.ModelYear),
-					new SqlParameter("@purchaseDate", vehicle.PurchaseDate),
-                    new SqlParameter("@purchasePrice", vehicle.PurchasePrice),
-					new SqlParameter("@salePrice", vehicle.salePrice),
-                    new SqlParameter("@vehicleType", vehicle.VehicleType),
-                    new SqlParameter("@fleetStatus", vehicle.FleetStatus),
+                var vehicleId = context.Database.ExecuteSqlCommand("Exec dbo.updateVehicle @vehicleId, @vinNumber, @make, @model, @vehicleYear, @dailyRate, @vehicleType, @currentLocation, @fleetStatus, @outputMessage OUT",
+                    new SqlParameter("@vehicleId", id),
+                    new SqlParameter("@vinNumber", vehicle.vinNumber),
+                    new SqlParameter("@make", vehicle.make),
+                    new SqlParameter("@model", vehicle.model),
+                    new SqlParameter("@vehicleYear", vehicle.vehicleYear),
+					new SqlParameter("@dailyRate", vehicle.dailyRate),
+                    new SqlParameter("@vehicleType", vehicle.vehicleType),
+					new SqlParameter("@currentLocation", vehicle.currentLocation),
+                    new SqlParameter("@fleetStatus", vehicle.fleetStatus),
                     outputParamUpdate);
 
                 Console.WriteLine(outputParamUpdate.Value);
@@ -166,8 +128,8 @@ namespace RentARide.Controllers
                 {
                     Direction = System.Data.ParameterDirection.Output
                 };
-                var vehicleId = context.Database.ExecuteSqlCommand("Exec dbo.deleteVehicle @rarVehicleID, @outputMessage OUT",
-                    new SqlParameter("@rarVehicleID", id),
+                var vehicleId = context.Database.ExecuteSqlCommand("Exec dbo.deleteVehicle @vehicleId, @outputMessage OUT",
+                    new SqlParameter("@vehicleId", id),
                     outputParam);
 
                 Console.WriteLine(outputParam.Value);

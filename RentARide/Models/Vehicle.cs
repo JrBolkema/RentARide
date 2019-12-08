@@ -9,24 +9,18 @@ namespace RentARide.Models
 	public class Vehicle
 	{
 		[Key]
-		public int rarVehicleID { get; set; }
-		public string VIN { get; set; }
-		public string Make { get; set; }
-		public string Model { get; set; }
-		public int ModelYear { get; set; }
-		public decimal salePrice { get; set; }
-		public DateTime PurchaseDate { get; set; }
-		public decimal PurchasePrice { get; set; }
-		public string VehicleType { get; set; }
-		public string FleetStatus { get; set; }
-
-
-
-
-
-
-		
-
-
-	}
+		public int vehicleId { get; set; }
+		public string vinNumber { get; set; }
+		public string make { get; set; }
+		public string model { get; set; }
+		public int vehicleYear { get; set; }
+		public decimal dailyRate { get; set; }
+		public int currentLocation{ get; set; }
+		public string vehicleType { get; set; }
+		public string fleetStatus { get; set; }
+        public DateTime created { get; set; }
+        public int createdBy { get; set; }
+        public DateTime modified { get; set; }
+        public int modifiedBy { get; set; }
+    }
 }

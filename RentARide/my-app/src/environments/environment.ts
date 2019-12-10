@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
 
-  getAllVehicles :"http://localhost:49408/vehicle",
+  Vehicles :"http://localhost:49408/vehicle",
 
   login: "http://localhost:49408/security/login"
 };

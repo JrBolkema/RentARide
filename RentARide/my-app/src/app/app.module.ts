@@ -13,6 +13,7 @@ import { HomeComponent } from './home/home.component';
 import { XyzComponent } from './xyz/xyz.component';
 import { LoginComponent } from './login/login.component';
 import { NavbarComponent } from './navbar/navbar/navbar.component';
+import { FleetComponent } from './fleet/fleet.component';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { NavbarComponent } from './navbar/navbar/navbar.component';
     XyzComponent,
     LoginComponent,
     NavbarComponent,
+    FleetComponent,
     
   ],
   imports: [

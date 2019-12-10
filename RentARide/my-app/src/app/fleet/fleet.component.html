@@ -1,0 +1,51 @@
+<form [formGroup]="vehicleForm" (ngSubmit)="onSubmit()">
+    <mat-form-field style="width:100%;">
+        <mat-select  (selectionChange)="selectedVehicleChanged($event)">
+            <mat-option style="color: blue;">
+                Add New Vehicle
+            </mat-option>
+            <mat-option *ngFor="let vehicle of allVehicles" [value]="vehicle" >
+                {{vehicle.vehicleYear + ' ' +  vehicle.make + ' ' + vehicle.model}}
+              </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <input matInput type="text" placeholder="VIN" formControlName="VIN">
+    </mat-form-field>
+    
+    <mat-form-field>
+        <input matInput type="text" placeholder="Make" formControlName="Make">
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+        <input matInput type="text" placeholder="Model" formControlName="Model">
+    </mat-form-field>
+    
+    <mat-form-field>
+        <input matInput type="text" placeholder="Year" formControlName="Year">
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+        <input matInput type="text" placeholder="DailyRate" formControlName="DailyRate">
+    </mat-form-field>
+    
+    <mat-form-field>
+        <input matInput type="text" placeholder="CurrentLocation" formControlName="CurrentLocation">
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+        <input matInput type="text" placeholder="VehicleType" formControlName="VehicleType">
+    </mat-form-field>
+    
+    <mat-form-field>
+        <input matInput type="text" placeholder="FleetStatus" formControlName="FleetStatus">
+    </mat-form-field>
+    <br />
+</form>
+
+<div>
+    <button mat-raised-button *ngIf='isAddOperation' color=primary (click)=invokeAddOrUpdateService() >Add</button>
+    <button mat-raised-button *ngIf='!isAddOperation' color=primary (click)=invokeAddOrUpdateService() >Update</button>
+    
+</div>

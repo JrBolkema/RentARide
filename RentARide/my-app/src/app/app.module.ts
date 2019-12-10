@@ -30,7 +30,7 @@ import { CheckOutComponent } from './check-out/check-out.component';
     ViewRentalComponent,
     CheckInComponent,
     CheckOutComponent,
-    
+
   ],
   imports: [
     BrowserModule,
@@ -41,8 +41,8 @@ import { CheckOutComponent } from './check-out/check-out.component';
     MaterialModule,
     SatPopoverModule
 
-    
-    
+
+
 
   ],
   providers: [],

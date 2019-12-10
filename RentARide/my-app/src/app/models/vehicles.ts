@@ -1,12 +1,11 @@
 export interface Vehicle {
-    rarVehicleID: number;
-    vin: null;
-    make: string;
-    model: string;
-    modelYear: number;
-    purchaseDate: string;
-    purchasePrice: number;
-    vehicleType: null;
-    fleetStatus: null;
-  }
-  
+  vehicleId?: number;
+  make: string;
+  model: string;
+  vehicleYear: number;
+  vinNumber: string;
+  dailyRate: number;
+  currentLocation: number;
+  vehicleType: string;
+  fleetStatus: string;
+}

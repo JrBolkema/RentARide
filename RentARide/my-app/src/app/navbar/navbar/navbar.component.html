@@ -3,6 +3,8 @@
     <button mat-button *ngIf="!isAuthenticatedUser">View Rental</button>
     <button mat-button *ngIf="isAuthenticatedUser">Check In</button>
     <button mat-button *ngIf="isAuthenticatedUser">Check Out</button>
+    <button mat-button  routerLink="/fleetMaintainance">Fleet Maintainance</button>
+
     <button mat-icon-button style="float: right;"
     [satPopoverAnchor]=login
     (click)="login.toggle()">

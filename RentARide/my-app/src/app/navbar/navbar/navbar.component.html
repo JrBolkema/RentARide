@@ -1,8 +1,8 @@
 <mat-toolbar>
-    <button mat-button *ngIf="!isAuthenticatedUser">Rent</button>
-    <button mat-button *ngIf="!isAuthenticatedUser">View Rental</button>
-    <button mat-button *ngIf="isAuthenticatedUser">Check In</button>
-    <button mat-button *ngIf="isAuthenticatedUser">Check Out</button>
+    <button mat-button *ngIf="!isAuthenticatedUser" routerLink="/rent">Rent</button>
+    <button mat-button *ngIf="!isAuthenticatedUser" routerLink="/view-rental">View Rental</button>
+    <button mat-button *ngIf="isAuthenticatedUser" routerLink="/check-in">Check In</button>
+    <button mat-button *ngIf="isAuthenticatedUser" routerLink="/check-out">Check Out</button>
     <button mat-icon-button style="float: right;"
     [satPopoverAnchor]=login
     (click)="login.toggle()">

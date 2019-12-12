@@ -32,6 +32,7 @@ namespace RentARide.Controllers
                 SqlParameter returnParam = new SqlParameter();
                 returnParam.Direction = System.Data.ParameterDirection.ReturnValue;
                 // location pickup time drop time
+                
                 var outputParamUpdate = new SqlParameter("@JSON", System.Data.SqlDbType.VarChar, 100000)
                 {
                     Direction = System.Data.ParameterDirection.Output

@@ -14,7 +14,7 @@ const routes: Routes = [
   {path: 'check-in', component: CheckInComponent },
   {path: 'check-out', component: CheckOutComponent },
   {path: 'rent', component: RentComponent },
-  {path: 'view-rental', component: ViewRentalComponent }
+  {path: 'view-rental', component: ViewRentalComponent },
   {path: 'xyz', component: XyzComponent },
   {path: 'fleetMaintainance', component: FleetComponent }
 

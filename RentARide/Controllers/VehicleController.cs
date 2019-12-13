@@ -68,14 +68,14 @@ namespace RentARide.Controllers
 					Direction = System.Data.ParameterDirection.Output
 				};
 
-				var vehicleId = context.Database.ExecuteSqlCommand("Exec dbo.AddVehicle @vinNumber, @make, @model, @vehicleYear, @dailyRate, @vehicleType, @currentLocation, @fleetStatus, @vehicleId OUT",
+				var vehicleId = context.Database.ExecuteSqlCommand("Exec dbo.AddVehicle @vinNumber, @make, @model, @vehicleYear, @dailyRate, @currentLocation, @vehicleType,  @fleetStatus, @vehicleId OUT",
 					new SqlParameter("@vinNumber", vehicle.vinNumber),
 					new SqlParameter("@make", vehicle.make),
 					new SqlParameter("@model", vehicle.model),
 					new SqlParameter("@vehicleYear", vehicle.vehicleYear),
 					new SqlParameter("@dailyRate", vehicle.dailyRate),
+					new SqlParameter("@currentLocation", vehicle.currentLocation),
 					new SqlParameter("@vehicleType", vehicle.vehicleType),
-                    new SqlParameter("@currentLocation", vehicle.currentLocation),
                     new SqlParameter("@fleetStatus", vehicle.fleetStatus),
 					outputParam);
 				// Logs the ID of the newly created vehicle

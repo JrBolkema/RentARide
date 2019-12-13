@@ -21,7 +21,6 @@ namespace RentARide
 		{
 			Configuration = configuration;
 		}
-		readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 		public IConfiguration Configuration { get; }
 
 		// This method gets called by the runtime. Use this method to add services to the container.
@@ -32,10 +31,12 @@ namespace RentARide
 				options.UseSqlServer(Configuration.GetConnectionString("RentARideContext")));
 			services.AddCors(options =>
 			{
-				options.AddPolicy(MyAllowSpecificOrigins,
+				options.AddPolicy("CorsSucks",
 				builder =>
 				{
-					builder.WithOrigins("*");
+					builder.AllowAnyHeader()
+						   .AllowAnyOrigin()
+						   .AllowAnyMethod();
 				});
 			});
 		}
@@ -51,7 +52,7 @@ namespace RentARide
 			{
 				app.UseHsts();
 			}
-			app.UseCors(MyAllowSpecificOrigins);
+			app.UseCors("CorsSucks");
 			app.UseHttpsRedirection();
 			app.UseMvc();
 		}

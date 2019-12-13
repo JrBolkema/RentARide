@@ -14,6 +14,7 @@ namespace RentARide.Controllers
 {
 	[Route("Vehicle")]
 	[ApiController]
+
 	public class VehicleController : ControllerBase
 	{
 		IServiceProvider serviceProvider;
@@ -39,6 +40,7 @@ namespace RentARide.Controllers
                     Direction = System.Data.ParameterDirection.Output
                 };
                 string VehicleList = context.Database.ExecuteSqlCommand("Exec dbo.listVehicles @JSON OUT",outputParamUpdate,returnParam).ToString();
+
                 return outputParamUpdate.Value.ToString();
             }    
         }

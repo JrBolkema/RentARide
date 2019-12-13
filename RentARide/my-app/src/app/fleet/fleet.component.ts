@@ -36,7 +36,8 @@ export class FleetComponent implements OnInit {
 
   }
   selectedVehicleChanged(event){
-    this.selectedVehicle = event.value    
+    this.selectedVehicle = event.value 
+     
     if (event.value != undefined) {
       this.isAddOperation=false
 
@@ -51,6 +52,7 @@ export class FleetComponent implements OnInit {
         VehicleType:this.selectedVehicle.vehicleType,
         FleetStatus:this.selectedVehicle.fleetStatus,
       })
+     
     } else {
       this.selectedVehicle=null
       this.isAddOperation=true
@@ -61,12 +63,12 @@ export class FleetComponent implements OnInit {
   
   createVehicleObjectFromForm():Vehicle{
     var vehicle: Vehicle = {
-      vehicleId: this.selectedVehicle != undefined ? this.selectedVehicle.vehicleId:null,
+      vehicleId: this.selectedVehicle != undefined ? this.selectedVehicle.vehicleId:-1,
       make: this.vehicleForm.value.Make,
       model: this.vehicleForm.value.Model,
       vehicleYear: this.vehicleForm.value.Year,
       vinNumber: this.vehicleForm.value.VIN,
-      dailyRate: this.vehicleForm.value.CurrentLocation,
+      dailyRate: this.vehicleForm.value.DailyRate,
       currentLocation: this.vehicleForm.value.CurrentLocation,
       vehicleType: this.vehicleForm.value.VehicleType,
       fleetStatus: this.vehicleForm.value.FleetStatus,
@@ -80,9 +82,14 @@ export class FleetComponent implements OnInit {
   invokeAddOrUpdateService(){
     var vehicle = this.createVehicleObjectFromForm()
     if (this.isAddOperation) {
-      this.databaseService.addVehicle(vehicle)
+      this.databaseService
+      .addVehicle(vehicle)
+      .toPromise()
+      .then(response => console.log(response)
+      )
     } else {
-      this.databaseService.updateVehicle(vehicle)
+      this.databaseService.updateVehicle(vehicle).toPromise().then(x => console.log(x)
+      )
     }
   }
   

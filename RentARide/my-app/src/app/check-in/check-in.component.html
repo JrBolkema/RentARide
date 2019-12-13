@@ -4,10 +4,22 @@
   Given reservation number
   check in time
  -->
- <!-- <form> -->
-  Reservation Number: <input type="text" name="ResNum"><br>
+<!-- <form> -->
+<form [formGroup]="checkInForm" (ngSubmit)="onSubmit()">
+
+  <mat-form-field>
+    <input matInput type="text" placeholder="Reservation Number" formControlName="ReservationNumber">
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <input matInput type="text" placeholder="Check In Time" formControlName="CheckInTime">
+  </mat-form-field>
+  <br>
+  <button mat-raised-button color=primary type="submit">Check Out</button>
+</form>
+<!-- Reservation Number: <input type="text" name="ResNum"><br>
   Check In Time: <input type="text" name="CheckInTime"><br>
-  <input type="submit" value="Submit">
+  <input type="submit" value="Submit"> -->
 <!-- </form> -->
 <!-- <input></input> -->
 <!-- Print reservation details -->

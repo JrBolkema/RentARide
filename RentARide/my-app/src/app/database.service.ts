@@ -24,18 +24,13 @@ export class DatabaseService {
     return this.httpClient.get<Vehicle[]>(environment.Vehicles);
   }
 
-  addVehicle(newVehicle:Vehicle){
-    return this.httpClient.post<Vehicle>(environment.Vehicles,newVehicle).subscribe(
-      response => console.log(response),
-      err => console.log(err)
-    )
+  addVehicle(newVehicle:Vehicle) : Observable<Vehicle>{   
+    return this.httpClient.post<Vehicle>(environment.Vehicles,newVehicle)
+  
   }
 
-  updateVehicle(updatedVehicle:Vehicle){
+  updateVehicle(updatedVehicle:Vehicle): Observable<Vehicle>{  
     var formattedUrl = `${environment.Vehicles}/${updatedVehicle.vehicleId}`
-    return this.httpClient.put<Vehicle>(environment.Vehicles,updatedVehicle).subscribe(
-      response => console.log(response),
-      err => console.log(err)
-    )
+    return this.httpClient.put<Vehicle>(formattedUrl,updatedVehicle)
   }
 }

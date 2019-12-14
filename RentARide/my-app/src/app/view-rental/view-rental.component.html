@@ -1,5 +1,10 @@
 <p>View Rental</p>
+<form [formGroup] = "getReservation" (ngSubmit) = "getRes(getReservation.value)" >
 
-Reservation Number: <input type="text" name="ResNum"><br>
-<input type="submit" value="Submit">
+  <mat-form-field>
+    <input matInput type="text" placeholder="Reservation Number" formControlName="ReservationNumber">
+  </mat-form-field>
+  <br/>
+  <button mat-raised-button type="submit">Get Reservation</button>
 <!-- Display vehicle given Id -->
+</form>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup,FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-check-out',
@@ -8,8 +9,22 @@ import { Component, OnInit } from '@angular/core';
 export class CheckOutComponent implements OnInit {
 
   constructor() { }
+  checkOutForm: FormGroup;
 
   ngOnInit() {
+    this.initializeForm();
   }
+
+  initializeForm(){
+    this.checkOutForm = new FormGroup({
+      ReservationNumber: new FormControl(''),
+      CheckOutTime: new FormControl(''),
+    })
+  }
+  checkOut(data) {
+    console.log(data.ReservationNumber);
+    console.log(data.CheckOutTime);
+  }
+
 
 }

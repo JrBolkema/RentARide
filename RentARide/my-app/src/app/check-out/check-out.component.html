@@ -1,13 +1,15 @@
 <h1>The check out</h1>
-<!--
-  Check in process:
-  Given reservation number
-  check in time
- -->
- <!-- <form> -->
-  Reservation Number: <input type="text" name="ResNum"><br>
-  Check Out Time: <input type="text" name="CheckOutTime"><br>
-  <input type="submit" value="Submit">
-<!-- </form> -->
-<!-- <input></input> -->
-<!-- Print reservation details -->
+
+<form [formGroup]="checkOutForm" (ngSubmit)="checkOut(checkOutForm.value)">
+
+  <mat-form-field>
+    <input matInput type="text" placeholder="Reservation Number" formControlName="ReservationNumber">
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <input matInput type="text" placeholder="Check Out Time" formControlName="CheckOutTime">
+  </mat-form-field>
+  <br>
+  <button mat-raised-button color=primary type="submit">Check Out</button>
+</form>
+

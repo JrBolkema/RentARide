@@ -78,8 +78,6 @@ export class RentComponent implements OnInit {
     this.proc1 = false;
     this.view = true;
 
-    console.log(this.reservation);
-
     this.reservation.locationId = data.location;
     this.reservation.pickUp = data.pickUpDate;
     this.reservation.dropOff = data.dropOffDate;

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-view-rental',
@@ -7,7 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewRentalComponent implements OnInit {
 
-  constructor() { }
+  getReservation: FormGroup;
+  constructor() {
+
+  }
 
   ngOnInit() {
   }

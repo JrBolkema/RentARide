@@ -18,6 +18,8 @@ import { ViewRentalComponent } from './view-rental/view-rental.component';
 import { CheckInComponent } from './check-in/check-in.component';
 import { CheckOutComponent } from './check-out/check-out.component';
 import { FleetComponent } from './fleet/fleet.component';
+import { MatDatepickerModule, MatNativeDateModule } from '@angular/material';
+
 
 
 @NgModule({
@@ -35,7 +37,9 @@ import { FleetComponent } from './fleet/fleet.component';
     LoginComponent,
     NavbarComponent,
     FleetComponent,
-    
+
+
+
   ],
   imports: [
     BrowserModule,
@@ -44,13 +48,12 @@ import { FleetComponent } from './fleet/fleet.component';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MaterialModule,
-    SatPopoverModule
-
-
-
+    SatPopoverModule,
+    MatDatepickerModule,
+    MatNativeDateModule
 
   ],
-  providers: [],
+  providers: [MatDatepickerModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -9,7 +9,6 @@ import { ViewRentalComponent } from "./view-rental/view-rental.component";
 import { FleetComponent } from './fleet/fleet.component';
 
 const routes: Routes = [
-  {path: 'home', component: HomeComponent },
   {path: 'xyz', component: XyzComponent },
   {path: 'check-in', component: CheckInComponent },
   {path: 'check-out', component: CheckOutComponent },

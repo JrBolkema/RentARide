@@ -1,11 +1,6 @@
 <h1>The check in</h1>
-<!--
-  Check in process:
-  Given reservation number
-  check in time
- -->
-<!-- <form> -->
-<form [formGroup]="checkInForm" (ngSubmit)="onSubmit()">
+
+<form [formGroup]="checkInForm" (ngSubmit)="checkIn(checkInForm.value)">
 
   <mat-form-field>
     <input matInput type="text" placeholder="Reservation Number" formControlName="ReservationNumber">
@@ -17,9 +12,3 @@
   <br>
   <button mat-raised-button color=primary type="submit">Check Out</button>
 </form>
-<!-- Reservation Number: <input type="text" name="ResNum"><br>
-  Check In Time: <input type="text" name="CheckInTime"><br>
-  <input type="submit" value="Submit"> -->
-<!-- </form> -->
-<!-- <input></input> -->
-<!-- Print reservation details -->

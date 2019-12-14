@@ -14,8 +14,10 @@ namespace RentARide.Models
         public DateTime reservedDate { get; set; }
         public string customerName { get; set; }
         public string reservationStatus { get; set; }
+        public DateTime pickUpDate { get; set; }
+        public DateTime dropOffDate { get; set; }
         public int vehicleId { get; set; }
-        public int pickupLocation { get; set; }
+        public int location { get; set; }
         public int returnedLocation { get; set; }
         public DateTime signedCheckOut { get; set; }
         public DateTime signedCheckIn { get; set; }

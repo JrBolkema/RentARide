@@ -12,21 +12,21 @@ using Newtonsoft.Json;
 
 namespace RentARide.Controllers
 {
-	[Route("Vehicle")]
-	[ApiController]
+    [Route("Vehicle")]
+    [ApiController]
 
-	public class VehicleController : ControllerBase
-	{
-		IServiceProvider serviceProvider;
-		public VehicleController(IServiceProvider serviceProvider)
-		{
-			this.serviceProvider = serviceProvider;
-		}
-		// GET vehicle
-		[HttpGet]
-		public ActionResult<string> Get()
-		{
-            
+    public class VehicleController : ControllerBase
+    {
+        IServiceProvider serviceProvider;
+        public VehicleController(IServiceProvider serviceProvider)
+        {
+            this.serviceProvider = serviceProvider;
+        }
+        // GET vehicle
+        [HttpGet]
+        public ActionResult<string> Get()
+        {
+
             using (var context = new RentARideContext(
                     serviceProvider.GetRequiredService<
                         DbContextOptions<RentARideContext>>())
@@ -34,15 +34,41 @@ namespace RentARide.Controllers
             {
                 SqlParameter returnParam = new SqlParameter();
                 returnParam.Direction = System.Data.ParameterDirection.ReturnValue;
-                
-                var outputParamUpdate = new SqlParameter("@JSON", System.Data.SqlDbType.VarChar,100000)
+
+                var outputParamUpdate = new SqlParameter("@JSON", System.Data.SqlDbType.VarChar, 100000)
                 {
                     Direction = System.Data.ParameterDirection.Output
                 };
-                string VehicleList = context.Database.ExecuteSqlCommand("Exec dbo.listVehicles @JSON OUT",outputParamUpdate,returnParam).ToString();
+                string VehicleList = context.Database.ExecuteSqlCommand("Exec dbo.listVehicles @JSON OUT", outputParamUpdate, returnParam).ToString();
 
                 return outputParamUpdate.Value.ToString();
-            }    
+            }
+        }
+
+        [HttpPost("available")]
+        public ActionResult<string> Post([FromBody] Reservations reservations)
+        {
+            using (var context = new RentARideContext(
+                    serviceProvider.GetRequiredService<
+                        DbContextOptions<RentARideContext>>())
+                    )
+            {
+                SqlParameter returnParam = new SqlParameter();
+                returnParam.Direction = System.Data.ParameterDirection.ReturnValue;
+
+                var outputParamUpdate = new SqlParameter("@JSON", System.Data.SqlDbType.VarChar, 100000)
+                {
+                    Direction = System.Data.ParameterDirection.Output
+                };
+                string VehicleList = context.Database.ExecuteSqlCommand("Exec dbo.availableVehicles @location, @pickUp, @dropOff, @JSON OUT",
+                    new SqlParameter("@location", reservations.location),
+                    new SqlParameter("@pickUp", reservations.pickUpDate),
+                    new SqlParameter("@dropOff", reservations.dropOffDate),
+                    outputParamUpdate, returnParam).ToString();
+
+
+                return outputParamUpdate.Value.ToString();
+            }
         }
 
         // GET vehicle/get/{id}

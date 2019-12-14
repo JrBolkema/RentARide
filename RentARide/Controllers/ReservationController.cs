@@ -43,6 +43,28 @@ namespace RentARide.Controllers
                 return outputParamUpdate.Value.ToString();
             }
         }
+        [HttpDelete("{confirmationCode}")]
+        public ActionResult<string> Delete(string confirmationCode)
+        {
+            using (var context = new RentARideContext(
+                    serviceProvider.GetRequiredService<
+                        DbContextOptions<RentARideContext>>())
+                    )
+            {
+                SqlParameter returnParam = new SqlParameter();
+                returnParam.Direction = System.Data.ParameterDirection.ReturnValue;
+                // location pickup time drop time
+
+                var outputParamUpdate = new SqlParameter("@JSON", System.Data.SqlDbType.VarChar, 100000)
+                {
+                    Direction = System.Data.ParameterDirection.Output
+                };
+                string ReservationList = context.Database.ExecuteSqlCommand("Exec dbo.deleteReservation @confirmationCode",
+                    new SqlParameter("@confirmationCode", confirmationCode),
+                    outputParamUpdate, returnParam).ToString();
+                return outputParamUpdate.Value.ToString();
+            }
+        }
         [HttpPost]
         public ActionResult<string> Post([FromBody] Reservations reservations)
         {

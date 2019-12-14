@@ -59,7 +59,7 @@ namespace RentARide.Controllers
                 {
                     Direction = System.Data.ParameterDirection.Output
                 };
-                string ReservationList = context.Database.ExecuteSqlCommand("Exec dbo.deleteReservation @confirmationCode",
+                string ReservationList = context.Database.ExecuteSqlCommand("Exec dbo.deleteReservation @confirmationCode, @JSON OUT",
                     new SqlParameter("@confirmationCode", confirmationCode),
                     outputParamUpdate, returnParam).ToString();
                 return outputParamUpdate.Value.ToString();

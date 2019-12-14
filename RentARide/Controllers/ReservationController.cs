@@ -41,6 +41,34 @@ namespace RentARide.Controllers
                 return outputParamUpdate.Value.ToString();
             }
         }
+        [HttpPost]
+        public ActionResult<string> Post([FromBody] Reservations reservations)
+        {
+            using (var context = new RentARideContext(
+                    serviceProvider.GetRequiredService<
+                        DbContextOptions<RentARideContext>>())
+                    )
+            {
+                SqlParameter returnParam = new SqlParameter();
+                returnParam.Direction = System.Data.ParameterDirection.ReturnValue;
+                // location pickup time drop time
+
+                var outputParamUpdate = new SqlParameter("@confirmCode", System.Data.SqlDbType.VarChar, 100000)
+                {
+                    Direction = System.Data.ParameterDirection.Output
+                };
+                string ReservationList = context.Database.ExecuteSqlCommand("Exec dbo.createReservation @customerName, @vehicleId, @pickupLocationId, @signedCheckOut, @signedCheckIn, @creditCard,@securityCode, @confirmCode OUT",
+                    new SqlParameter("@customerName", reservations.customerName),
+                    new SqlParameter("@vehicleId", reservations.vehicleId),
+                    new SqlParameter("@pickupLocationId", reservations.pickupLocationId),
+                    new SqlParameter("@signedCheckOut", reservations.signedCheckOut),
+                    new SqlParameter("@signedCheckIn", reservations.signedCheckIn),
+                    new SqlParameter("@creditCard", reservations.creditCard),                    
+                    new SqlParameter("@securityCode", reservations.securityCode),                    
+                    outputParamUpdate, returnParam).ToString();
+                return outputParamUpdate.Value.ToString();
+            }
+        }
 
     }
 }

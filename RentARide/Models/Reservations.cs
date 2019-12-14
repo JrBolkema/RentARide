@@ -28,5 +28,8 @@ namespace RentARide.Models
         public int createdBy { get; set; }
         public DateTime modified { get; set; }
         public int modifiedBy { get; set; }
+        public string creditCard { get; set; }
+        public string securityCode { get; set; }
+        public string pickupLocationId { get; set; }
     }
 }

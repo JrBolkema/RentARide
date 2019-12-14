@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { FormBuilder } from '@angular/forms';
 import { RentComponent } from './rent.component';
+import { DateValueAccessorModule } from 'angular-date-value-accessor';
+import { MatDatepickerModule, MatNativeDateModule } from '@angular/material';
 
 describe('RentComponent', () => {
   let component: RentComponent;

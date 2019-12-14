@@ -1,12 +1,65 @@
-<h1>Rent</h1>
+<!-- Stored procedure 1 : Getting avaliable vehicle ids with
+  [Location (option), Intended check out time, Intended check in time] -->
+<div *ngIf="proc1">
+  <form [formGroup] = "procedureOneForm" (ngSubmit) = "getAvaliableVehicles(procedureOneForm.value)" >
 
-Car Id: <input type="text" name="CheckInTime"><br>
-Name on card: <input type="text" name="CheckInTime"><br>
-Card number: 	<input type="text" ng-model="number" payments-validate="card" /><br>
-Exp. Date: 	<input type="text" ng-model="expiry" payments-validate="expiry" /><br>
-CVC: <input type="text" ng-model="cvc" payments-validate="cvc" /><br>
-Intended Check Out Date: <input type="text" name="CheckInTime"><br>
-Intended Check In Date: <input type="text" name="CheckInTime"><br>
-<input type="submit" value="Submit">
+    Location:
+    <select formControlName="locations" id="locations" formControlName = "location">
+      <option *ngFor="let location of locations; let i = index" [value]="locations[i].id">
+        {{locations[i].name}}
+      </option>
+    </select>
+    <br/>
+
+    Pick Up Date:
+    <mat-form-field >
+      <input matInput [matDatepicker]="pickUpDate" placeholder="Choose a date" formControlName = "pickUpDate">
+      <mat-datepicker-toggle matSuffix [for]="pickUpDate"></mat-datepicker-toggle>
+      <mat-datepicker #pickUpDate></mat-datepicker>
+    </mat-form-field >
+    <br/>
+
+    Drop Off Date:
+    <mat-form-field>
+      <input matInput [matDatepicker]="dropOffDate" placeholder="Choose a date" formControlName = "dropOffDate">
+      <mat-datepicker-toggle matSuffix [for]="dropOffDate"></mat-datepicker-toggle>
+      <mat-datepicker #dropOffDate></mat-datepicker>
+    </mat-form-field>
+    <br/>
+
+    <input type = "submit" [disabled] = "!procedureOneForm.valid" class = "forsubmit"
+      value = "GO" id="viewVehiclesButton">
+
+  </form>
+</div>
+
+<!-- View all the returned vehicles, with button interface -->
+
+<div *ngIf="view">
+  <form [formGroup] = "viewVehiclesForm" (ngSubmit) = "selectCar(viewVehiclesForm.value)" >
+    <div *ngFor="let car of avaliableVehicles">
+      Name: {{car.Name}}
+      <br/>
+      <input type = "button" value = "SELECT" id="viewVehiclesButton" id = {{car.Id}} (click)="selectCar($event)">
+      <!-- [value]="car.Id"> -->
+    </div>
+  </form>
+</div>
+
+<!-- Stored procedure 2 : Creating reservatin given car Id
+[ customerName, vehicleId, pickipLocationId, signedCheckOut, signedCheckIn, creditCard, securityCode ] -->
+<div *ngIf="proc2">
+  <form [formGroup] = "procTwoForm" (ngSubmit) = "createReservation(procTwoForm)">
+    Name: <input formControlName = "name"/>
+    <br/>
+    Credit Card: <input formControlName = "creditCard"/>
+    CVC: <input formControlName = "cvc"/>
+    <input type = "submit" value = "Place Reservation" id="placeResButton" >
+  </form>
+</div>
+
 <!-- Display ReservationId -->
+<div *ngIf="reservationNumberView">
+  <h1>{{confNum}}</h1>
+</div>
 

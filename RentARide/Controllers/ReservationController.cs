@@ -21,8 +21,8 @@ namespace RentARide.Controllers
         {
             this.serviceProvider = serviceProvider;
         }
-        [HttpGet]
-        public ActionResult<string> Get()
+        [HttpGet("{confirmationCode}")]
+        public ActionResult<string> Get(string confirmationCode)
         {
             using (var context = new RentARideContext(
                     serviceProvider.GetRequiredService<
@@ -37,7 +37,9 @@ namespace RentARide.Controllers
                 {
                     Direction = System.Data.ParameterDirection.Output
                 };
-                string ReservationList = context.Database.ExecuteSqlCommand("Exec dbo.listReservations @JSON OUT", outputParamUpdate, returnParam).ToString();
+                string ReservationList = context.Database.ExecuteSqlCommand("Exec dbo.getReservation @confirmationCode, @JSON OUT",
+                    new SqlParameter("@confirmationCode", confirmationCode),
+                    outputParamUpdate, returnParam).ToString();
                 return outputParamUpdate.Value.ToString();
             }
         }

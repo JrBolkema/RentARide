@@ -93,6 +93,28 @@ namespace RentARide.Controllers
                 return outputParamUpdate.Value.ToString();
             }
         }
+        [HttpGet("locations")]
+        public ActionResult<string> Get()
+        {
+
+            using (var context = new RentARideContext(
+                    serviceProvider.GetRequiredService<
+                        DbContextOptions<RentARideContext>>())
+                    )
+            {
+                SqlParameter returnParam = new SqlParameter();
+                returnParam.Direction = System.Data.ParameterDirection.ReturnValue;
+
+                var outputParamUpdate = new SqlParameter("@JSON", System.Data.SqlDbType.VarChar, 100000)
+                {
+                    Direction = System.Data.ParameterDirection.Output
+                };
+                string VehicleList = context.Database.ExecuteSqlCommand("Exec dbo.getLocations @JSON OUT", outputParamUpdate, returnParam).ToString();
+
+                return outputParamUpdate.Value.ToString();
+            }
+        }
+
 
     }
 }

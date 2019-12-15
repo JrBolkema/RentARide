@@ -65,7 +65,26 @@ namespace RentARide.Controllers
                     returnParam).ToString();                
             }
         }
-       
+        // Car checkout.
+        [HttpPatch("checkOut")]
+        public void Patch([FromBody] Reservations reservations)
+        {
+            using (var context = new RentARideContext(
+                    serviceProvider.GetRequiredService<
+                        DbContextOptions<RentARideContext>>())
+                    )
+            {
+                SqlParameter returnParam = new SqlParameter();
+                returnParam.Direction = System.Data.ParameterDirection.ReturnValue;
+
+                string ReservationList = context.Database.ExecuteSqlCommand("Exec dbo.actualCheckOut @confirmationCode, @vehicleCondition, @actualCheckOut",
+                    new SqlParameter("@confirmationCode", reservations.confirmationCode),
+                    new SqlParameter("@vehicleCondition", reservations.vehicleCondition),
+                    new SqlParameter("@actualCheckOut", reservations.actualCheckOut),
+                    returnParam).ToString();
+            }
+        }
+
         // Set reservation inactive.
         [HttpDelete("{confirmationCode}")]
         public ActionResult<string> Delete(string confirmationCode)

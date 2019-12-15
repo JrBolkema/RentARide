@@ -21,6 +21,7 @@ namespace RentARide.Controllers
         {
             this.serviceProvider = serviceProvider;
         }
+        // Get already created reservation.
         [HttpGet("{confirmationCode}")]
         public ActionResult<string> Get(string confirmationCode)
         {
@@ -43,6 +44,29 @@ namespace RentARide.Controllers
                 return outputParamUpdate.Value.ToString();
             }
         }
+        // Update reservations for returned cars.
+        [HttpPut("checkIn")]
+        public void Put([FromBody] Reservations reservations)
+        {
+            using (var context = new RentARideContext(
+                    serviceProvider.GetRequiredService<
+                        DbContextOptions<RentARideContext>>())
+                    )
+            {
+                SqlParameter returnParam = new SqlParameter();
+                returnParam.Direction = System.Data.ParameterDirection.ReturnValue;
+                
+
+                string ReservationList = context.Database.ExecuteSqlCommand("Exec dbo.checkIn @confirmationCode, @returnedLocationId, @actualCheckIn, @vehicleCondition",
+                    new SqlParameter("@confirmationCode", reservations.confirmationCode),
+                    new SqlParameter("@returnedLocationId", reservations.returnedLocationId),
+                    new SqlParameter("@actualCheckIn", reservations.actualCheckIn),
+                    new SqlParameter("@vehicleCondition", reservations.vehicleCondition),
+                    returnParam).ToString();                
+            }
+        }
+       
+        // Set reservation inactive.
         [HttpDelete("{confirmationCode}")]
         public ActionResult<string> Delete(string confirmationCode)
         {
@@ -53,8 +77,7 @@ namespace RentARide.Controllers
             {
                 SqlParameter returnParam = new SqlParameter();
                 returnParam.Direction = System.Data.ParameterDirection.ReturnValue;
-                // location pickup time drop time
-
+               
                 var outputParamUpdate = new SqlParameter("@JSON", System.Data.SqlDbType.VarChar, 100000)
                 {
                     Direction = System.Data.ParameterDirection.Output
@@ -65,6 +88,7 @@ namespace RentARide.Controllers
                 return outputParamUpdate.Value.ToString();
             }
         }
+        // Make reservation.
         [HttpPost]
         public ActionResult<string> Post([FromBody] Reservations reservations)
         {

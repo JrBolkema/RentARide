@@ -18,7 +18,7 @@ namespace RentARide.Models
         public DateTime dropOffDate { get; set; }
         public int vehicleId { get; set; }
         public int location { get; set; }
-        public int returnedLocation { get; set; }
+        public int returnedLocationId { get; set; }
         public DateTime signedCheckOut { get; set; }
         public DateTime signedCheckIn { get; set; }
         public DateTime actualCheckOut { get; set; }

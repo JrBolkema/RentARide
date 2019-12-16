@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
 import { DatabaseService } from '../database.service';
+import { Reservation } from '../models/reservation';
 
 @Component({
   selector: 'app-view-rental',
@@ -16,18 +17,25 @@ export class ViewRentalComponent implements OnInit {
       ReservationNumber: new FormControl("")
     })
     }
+    selectedReservation: Reservation;
+    showReservation:boolean = false;
 
   ngOnInit() {
   }
   getRes(data) {
+    this.databaseService.getReservation(data.ReservationNumber).toPromise().then(x => {
+      this.selectedReservation = x[0]
+      this.showReservation = true;
+      
+    }
+      )
 
-    console.log(data.ReservationNumber);
-    this.databaseService.getReservation(data.ReservationNumber).toPromise().then(x => console.log(x[0]))
   }
 
-  cancelReservation(){
-    console.log("Cancel");
-    
+  cancelReservation(data){
+    this.databaseService.cancelReservation(data.ReservationNumber).toPromise().then(x => {
+      this.showReservation = false    
+    })
   }
 
 }

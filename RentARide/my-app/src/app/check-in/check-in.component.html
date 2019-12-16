@@ -6,10 +6,23 @@
     <input matInput type="text" placeholder="Reservation Number" formControlName="ReservationNumber">
   </mat-form-field>
   <br>
-  <mat-form-field>
-    <input matInput type="text" placeholder="Check In Time" formControlName="CheckInTime">
-  </mat-form-field>
+  
+  <mat-form-field >
+    <input matInput [matDatepicker]="pickUpDate" placeholder="Check in time" formControlName = "CheckInTime">
+    <mat-datepicker-toggle matSuffix [for]="pickUpDate"></mat-datepicker-toggle>
+    <mat-datepicker #pickUpDate></mat-datepicker>
+  </mat-form-field >
   <br>
+  <mat-form-field>
+    <mat-select style="width: 180px; margin-left: 10px;" placeholder="Current Location" formControlName="CurrentLocation">
+        
+        <mat-option *ngFor="let location of allLocations" [value]="location" >
+            {{location.locationName}}
+          </mat-option>
+    </mat-select>
+</mat-form-field>
+    <br />
+
   <mat-form-field>
     <textarea matInput placeholder="Vehicle Condition" formControlName="VehicleCondition"></textarea>
   </mat-form-field>

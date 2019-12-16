@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@ang
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { Reservation } from '../models/reservation';
 import { DatabaseService } from '../database.service';
+import { Vehicle } from '../models/vehicles';
 
 
 @Component({
@@ -74,51 +75,64 @@ export class RentComponent implements OnInit {
     this.proc1 = false;
     this.view = true;
 
-    this.reservation.locationId = data.location;
-    this.reservation.pickUp = data.pickUpDate;
-    this.reservation.dropOff = data.dropOffDate;
+    
+
+    this.reservation.pickUpDate = data.pickUpDate;
+    this.reservation.dropOffDate = data.dropOffDate;
+    this.reservation.location = data.location.locationId;
+    this.reservation.pickupLocationId = data.location.locationId;
+    this.reservation.signedCheckOut = data.pickUpDate;
+    this.reservation.signedCheckIn = data.dropOffDate;
+    
+
+    console.log(this.reservation);
+    
+    this.databaseService.getAvailableVehicles(this.reservation).toPromise().then(
+      result => this.populateAvailableVehicles(result))
+    
 
     this.viewVehiclesForm = this.formBuilder.group({
       carId: new FormControl("")
     })
     // Avaliable vehicles need to be put into array
-    this.avaliableVehicles = [{
-      Name: "Car1",
-      Id: 1
-    },
-    {
-      Name: "Car2",
-      Id: 2
-    },
-    {
-      Name: "Car3",
-      Id: 3
-    }
-    ];
+
     // Run Procedure 1 and return vehicle data
+  }
+  populateAvailableVehicles(vehicles: Vehicle[]){
+    this.avaliableVehicles=[]
+    vehicles.forEach(vehicle => {      
+      this.avaliableVehicles.push(
+        {
+          Name: `${vehicle.vehicleYear} ${vehicle.make} ${vehicle.model}`,
+          Id: vehicle.vehicleId
+        }
+      )
+      
+    });
   }
   // Gives car id
   selectCar(event) {
     this.view = false;
     this.proc2 = true;
-
-    this.reservation.carId = event.target.id;
+    
+    this.reservation.carId = event.toElement.parentElement.id; 
+    this.reservation.vehicleId = event.toElement.parentElement.id;
   }
   // Gives name, car id, credit card, and cvc
   createReservation(data) {
     this.proc2 = false;
     this.reservationNumberView = true;
 
-    this.reservation.name = data.value.name;
+    this.reservation.customerName = data.value.name;
     this.reservation.creditCard = data.value.creditCard;
-    this.reservation.CVC = data.value.cvc;
+    this.reservation.securityCode = data.value.cvc;
 
-    console.log(data);
-
-    console.log(this.reservation);
-
-    this.confNum = "Confirmation Code here"
-  }
-
+    this.databaseService.createReservation(this.reservation).toPromise().catch(
+      result => {this.confNum = result.error.text
+      }
+    )
+      
+    
+}
 }
 

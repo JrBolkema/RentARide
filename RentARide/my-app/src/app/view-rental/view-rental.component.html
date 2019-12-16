@@ -7,7 +7,12 @@
   <br/>
   <button mat-raised-button type="submit">Get Reservation</button>
   <br>
-  <button mat-raised-button [disabled]="getReservation.valid" (click)="cancelReservation()">Cancel Reservation</button>
+  <button mat-raised-button [disabled]="!showReservation" (click)="cancelReservation(getReservation.value)">Cancel Reservation</button>
 
+  <div *ngIf="showReservation">
+    <p>Name: {{selectedReservation.customerName}}</p> 
+    <p>Check out time: {{selectedReservation.signedCheckOut}}</p> 
+    <p>Check in time: {{ selectedReservation.signedCheckIn }}</p>
+  </div>
 <!-- Display vehicle given Id -->
 </form>

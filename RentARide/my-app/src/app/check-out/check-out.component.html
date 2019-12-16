@@ -6,9 +6,12 @@
     <input matInput type="text" placeholder="Reservation Number" formControlName="ReservationNumber">
   </mat-form-field>
   <br>
-  <mat-form-field>
-    <input matInput type="text" placeholder="Check Out Time" formControlName="CheckOutTime">
-  </mat-form-field>
+  <mat-form-field >
+    <input matInput [matDatepicker]="CheckOutTime" placeholder="Check out time" formControlName = "CheckOutTime">
+    <mat-datepicker-toggle matSuffix [for]="CheckOutTime"></mat-datepicker-toggle>
+    <mat-datepicker #CheckOutTime></mat-datepicker>
+  </mat-form-field >
+
   <br>
   <mat-form-field>
     <textarea matInput placeholder="Vehicle Condition" formControlName="VehicleCondition"></textarea>

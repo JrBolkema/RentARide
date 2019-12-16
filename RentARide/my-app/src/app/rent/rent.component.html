@@ -40,11 +40,12 @@
 <!-- View all the returned vehicles, with button interface -->
 
 <div *ngIf="view">
-  <form [formGroup] = "viewVehiclesForm" (ngSubmit) = "selectCar(viewVehiclesForm.value)" >
-    <div *ngFor="let car of avaliableVehicles">
-      Name: {{car.Name}}
-      <br/>
-      <input type = "button" value = "SELECT" id="viewVehiclesButton" id = {{car.Id}} (click)="selectCar($event)">
+  <form [formGroup] = "viewVehiclesForm"  >
+    <div *ngFor="let car of avaliableVehicles" style="margin: 10px;">
+      {{car.Name}}
+      <button mat-raised-button color=primary  id={{car.Id}} (click)="selectCar($event)">Select </button>
+ 
+      
       <!-- [value]="car.Id"> -->
     </div>
   </form>
@@ -54,16 +55,25 @@
 [ customerName, vehicleId, pickipLocationId, signedCheckOut, signedCheckIn, creditCard, securityCode ] -->
 <div *ngIf="proc2">
   <form [formGroup] = "procTwoForm" (ngSubmit) = "createReservation(procTwoForm)">
-    Name: <input formControlName = "name"/>
-    <br/>
-    Credit Card: <input formControlName = "creditCard"/>
-    CVC: <input formControlName = "cvc"/>
-    <input type = "submit" value = "Place Reservation" id="placeResButton" >
+    <mat-form-field>
+      <input matInput type="text" placeholder="Name" formControlName="name">
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+
+    <input matInput type="text" placeholder="Credit Card" formControlName="creditCard">
+</mat-form-field>
+<br>
+<mat-form-field>
+  <input matInput type="text" placeholder="CVC" formControlName="cvc">
+</mat-form-field>
+<br>
+<button mat-raised-button type="submit">Place Reservation</button>
   </form>
 </div>
 
 <!-- Display ReservationId -->
 <div *ngIf="reservationNumberView">
-  <h1>{{confNum}}</h1>
+  <h1>Your Confirmation Code is: {{confNum}}</h1>
 </div>
 

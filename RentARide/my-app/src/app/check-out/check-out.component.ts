@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup,FormControl } from '@angular/forms';
+import { checkInAndOut } from '../models/checkIn';
+import { DatabaseService } from '../database.service';
 
 @Component({
   selector: 'app-check-out',
@@ -8,7 +10,7 @@ import { FormGroup,FormControl } from '@angular/forms';
 })
 export class CheckOutComponent implements OnInit {
 
-  constructor() { }
+  constructor(private databaseService:DatabaseService) { }
   checkOutForm: FormGroup;
 
   ngOnInit() {
@@ -23,9 +25,16 @@ export class CheckOutComponent implements OnInit {
     })
   }
   checkOut(data) {
-    console.log(data.ReservationNumber);
-    console.log(data.CheckOutTime);
-    console.log(data.VehicleCondition);
+    var checkOut: checkInAndOut = {
+      confirmationCode: data.ReservationNumber,
+      vehicleCondition: data.VehicleCondition,
+      actualCheckOut:data.CheckOutTime,
+    }
+    
+    
+
+    this.databaseService.checkOut(checkOut).toPromise().then(result => console.log("success"))
+
   }
 
 

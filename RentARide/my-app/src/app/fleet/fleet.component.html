@@ -1,6 +1,6 @@
 <form [formGroup]="vehicleForm" (ngSubmit)="onSubmit()">
     <mat-form-field style="width:100%;">
-        <mat-select  (selectionChange)="selectedVehicleChanged($event)">
+        <mat-select  placeholder="Select a Vehicle" (selectionChange)="selectedVehicleChanged($event)">
             <mat-option style="color: blue;">
                 Add New Vehicle
             </mat-option>
@@ -27,19 +27,27 @@
     </mat-form-field>
     <br />
     <mat-form-field>
-        <input matInput type="text" placeholder="DailyRate" formControlName="DailyRate">
+        <input matInput type="text" placeholder="Daily Rate" formControlName="DailyRate">
     </mat-form-field>
     
+    <!-- <mat-form-field>
+        <input matInput type="text" placeholder="Current Location" formControlName="CurrentLocation">
+    </mat-form-field> -->
     <mat-form-field>
-        <input matInput type="text" placeholder="CurrentLocation" formControlName="CurrentLocation">
-    </mat-form-field>
+    <mat-select style="width: 180px; margin-left: 10px;" placeholder="Current Location" formControlName="CurrentLocation">
+        
+        <mat-option *ngFor="let location of allLocations" [value]="location" >
+            {{location.locationName}}
+          </mat-option>
+    </mat-select>
+</mat-form-field>
     <br />
     <mat-form-field>
-        <input matInput type="text" placeholder="VehicleType" formControlName="VehicleType">
+        <input matInput type="text" placeholder="Vehicle Type" formControlName="VehicleType">
     </mat-form-field>
     
     <mat-form-field>
-        <input matInput type="text" placeholder="FleetStatus" formControlName="FleetStatus">
+        <input matInput type="text" placeholder="Fleet Status" formControlName="FleetStatus">
     </mat-form-field>
     <br />
 </form>

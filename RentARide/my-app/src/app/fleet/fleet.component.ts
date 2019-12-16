@@ -14,11 +14,13 @@ export class FleetComponent implements OnInit {
   selectedVehicle:Vehicle;
   vehicleForm:FormGroup;
   allVehicles:Vehicle[];
+  allLocations:Location[];
   isAddOperation: boolean = true;
   
   ngOnInit() {
     this.initializeVehicleForm()
     this.getAllVehicles()
+    this.getAllLocations()
   }
 
   initializeVehicleForm() {
@@ -37,7 +39,9 @@ export class FleetComponent implements OnInit {
   }
   selectedVehicleChanged(event){
     this.selectedVehicle = event.value 
-     
+    
+    
+    console.log()
     if (event.value != undefined) {
       this.isAddOperation=false
 
@@ -48,7 +52,7 @@ export class FleetComponent implements OnInit {
         Model:this.selectedVehicle.model,
         Year:this.selectedVehicle.vehicleYear,
         DailyRate:this.selectedVehicle.dailyRate,
-        CurrentLocation:this.selectedVehicle.currentLocation,
+        CurrentLocation:this.allLocations[this.selectedVehicle.currentLocation-1],
         VehicleType:this.selectedVehicle.vehicleType,
         FleetStatus:this.selectedVehicle.fleetStatus,
       })
@@ -62,18 +66,22 @@ export class FleetComponent implements OnInit {
   }
   
   createVehicleObjectFromForm():Vehicle{
-    var vehicle: Vehicle = {
+      
+      
+      
+      var vehicle: Vehicle = {
       vehicleId: this.selectedVehicle != undefined ? this.selectedVehicle.vehicleId:-1,
       make: this.vehicleForm.value.Make,
       model: this.vehicleForm.value.Model,
       vehicleYear: this.vehicleForm.value.Year,
       vinNumber: this.vehicleForm.value.VIN,
       dailyRate: this.vehicleForm.value.DailyRate,
-      currentLocation: this.vehicleForm.value.CurrentLocation,
+      currentLocation: this.vehicleForm.value.CurrentLocation.locationId,
       vehicleType: this.vehicleForm.value.VehicleType,
       fleetStatus: this.vehicleForm.value.FleetStatus,
     }
-    console.log(vehicle);
+    
+    
     
     return vehicle
 
@@ -96,6 +104,9 @@ export class FleetComponent implements OnInit {
   getAllVehicles(){
     this.databaseService.getAllVehicles().toPromise().then(result => this.allVehicles = result);
     }
+  getAllLocations(){
+    this.databaseService.getLocations().toPromise().then(result => this.allLocations = result)
+  }
   }
 
 

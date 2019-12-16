@@ -19,11 +19,14 @@ export class CheckInComponent implements OnInit {
     this.checkInForm = new FormGroup({
       ReservationNumber: new FormControl(''),
       CheckInTime: new FormControl(''),
+      VehicleCondition: new FormControl('')
     })
   }
   checkIn(data) {
     console.log(data.ReservationNumber);
     console.log(data.CheckInTime);
+    console.log(data.VehicleCondition);
+    
   }
 
 

@@ -19,11 +19,13 @@ export class CheckOutComponent implements OnInit {
     this.checkOutForm = new FormGroup({
       ReservationNumber: new FormControl(''),
       CheckOutTime: new FormControl(''),
+      VehicleCondition: new FormControl('')
     })
   }
   checkOut(data) {
     console.log(data.ReservationNumber);
     console.log(data.CheckOutTime);
+    console.log(data.VehicleCondition);
   }
 
 

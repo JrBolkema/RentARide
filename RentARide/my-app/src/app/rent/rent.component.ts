@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { Reservation } from '../models/reservation';
+import { DatabaseService } from '../database.service';
 
 
 @Component({
@@ -24,20 +25,20 @@ export class RentComponent implements OnInit {
   viewVehiclesForm: FormGroup;
   procTwoForm: FormGroup;
 
-  locations = [];
+  locations: Location[];
   public reservation: Reservation;
   confNum;
 
   avaliableVehicles;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,private databaseService:DatabaseService) {
     this.proc1 = true;
-    this.locations = this.getLocation();
 
     this.reservation = new Reservation();
   }
 
   ngOnInit() {
+    this.getLocation()
     this.procedureOneForm = this.formBuilder.group({
       location: new FormControl("", Validators.compose([
         Validators.required
@@ -66,12 +67,7 @@ export class RentComponent implements OnInit {
 
   getLocation() {
     // Call out for all the locations in the database, return list of locations
-    return [
-      { id: '1', name: 'Location 1' },
-      { id: '2', name: 'Location 2' },
-      { id: '3', name: 'Location 3' },
-      { id: '4', name: 'Location 4' }
-    ];
+    this.databaseService.getLocations().toPromise().then(result => this.locations = result)
   }
 
   getAvaliableVehicles(data) {

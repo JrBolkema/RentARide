@@ -6,6 +6,7 @@ export const environment = {
   production: false,
 
   Vehicles :"http://localhost:49408/vehicle",
+  Reservations :"http://localhost:49408/Reservation",
 
   login: "http://localhost:49408/security/login"
 };

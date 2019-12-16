@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Vehicle } from './models/vehicles';
 import { ThrowStmt } from '@angular/compiler';
 import { HttpHeaders } from '@angular/common/http';
+import { Reservation } from './models/reservation';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,7 @@ export class DatabaseService {
     return this.httpClient.get<Vehicle[]>(environment.Vehicles);
   }
 
-  addVehicle(newVehicle:Vehicle) : Observable<Vehicle>{   
+  addVehicle(newVehicle:Vehicle) : Observable<Vehicle>{       
     return this.httpClient.post<Vehicle>(environment.Vehicles,newVehicle)
   
   }
@@ -32,5 +33,12 @@ export class DatabaseService {
   updateVehicle(updatedVehicle:Vehicle): Observable<Vehicle>{  
     var formattedUrl = `${environment.Vehicles}/${updatedVehicle.vehicleId}`
     return this.httpClient.put<Vehicle>(formattedUrl,updatedVehicle)
+  }
+
+  getLocations(): Observable<Location[]>{
+    return this.httpClient.get<Location[]>(`${environment.Reservations}/locations`)
+  }
+  getReservation(confirmationCode: string): Observable<Reservation>{
+    return this.httpClient.get<Reservation>(`${environment.Reservations}/${confirmationCode}`)
   }
 }

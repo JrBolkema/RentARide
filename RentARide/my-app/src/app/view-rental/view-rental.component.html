@@ -6,5 +6,8 @@
   </mat-form-field>
   <br/>
   <button mat-raised-button type="submit">Get Reservation</button>
+  <br>
+  <button mat-raised-button [disabled]="getReservation.valid" (click)="cancelReservation()">Cancel Reservation</button>
+
 <!-- Display vehicle given Id -->
 </form>
